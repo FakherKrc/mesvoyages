@@ -30,11 +30,25 @@ class VoyagesController extends AbstractController{
      * @Route("/Voyages", name = "Voyages")
      * @return Response
      */
-    public function index(): Response{
-        $visites = $this->repository->findAll();
+    public function index(): Response
+    {
+        $visites = $this->repository->findAllOrderBy('datecreation', 'DESC');
     return $this->render("pages/Voyages.html.twig", ['visites' => $visites]);
+            
+    }
     
+    /**
+     * @Route("/voyages/tri/{champ}/{ordre}", name="voyages.sort")
+     * @param type $champ
+     * @param type $ordre
+     * @return Response
+     */
+    public function sort($champ, $ordre): Response
+    {
+        $visites = $this->repository->findAllOrderBy($champ, $ordre);
+    return $this->render("pages/Voyages.html.twig", ['visites' => $visites]);
+        
+    }
     
-}
     
 }
