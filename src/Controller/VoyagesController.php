@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\VisiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author 33767
  */
 class VoyagesController extends AbstractController{
+    
     
     /**
      * 
@@ -38,7 +40,7 @@ class VoyagesController extends AbstractController{
     }
     
     /**
-     * @Route("/voyages/tri/{champ}/{ordre}", name="voyages.sort")
+     * @Route("/Voyages/tri/{champ}/{ordre}", name="voyages.sort")
      * @param type $champ
      * @param type $ordre
      * @return Response
@@ -50,5 +52,17 @@ class VoyagesController extends AbstractController{
         
     }
     
-    
+    /**
+     * @Route("/Voyages/recherche/{champ}", name = "voyages.findallequal")
+     * @param type $champ
+     * @param Request $request
+     * @return Response
+     */
+    public function findAllEqual($champ, Request $request): Response{
+        $valeur = $request->get("recherche");
+        $visites = $this->repository->findByEqualValue($champ, $valeur);
+        return $this->render("pages/Voyages.html.twig", [ 'visites' => $visites]);
+          
+        
+    }
 }
