@@ -18,7 +18,9 @@
              {% endfor %}
          </div>
          <div class ="col">
-         
+         {%  if visite.imagename %}
+             <img src ="/mesvoyages/public/images/visites/{{visite.imagename}}" class ="card-img-top" style="width:100%;height:auto;">
+          {%  endif %}
          
          </div>
     </div>
